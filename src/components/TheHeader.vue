@@ -2,22 +2,36 @@
   <div class="header-container flex flex-column">
     <header class="flex">
       <h1>logo</h1>
+
       <!-- Mobile navigation, only shows on screens < 600px -->
-      <nav class="navigation-mobile">
+      <nav class="navigation-mobile" v-if="isMobile">
         <button>
           <img src="../assets/icon-hamburger.svg" alt="menu" />
         </button>
       </nav>
+      <!-- bigger screen navigation, shows on screens > 600px -->
+      <nav class="navigation-desktop flex" v-else>
+        <div class="nav-items flex">
+          <p>Pricing</p>
+          <p>Contact</p>
+          <p>Support</p>
+        </div>
+        <div class="login-btn-container">
+          <button class="btn btn-secondary btn-login">Login</button>
+          <button class="btn btn-primary btn-singup">Sign Up</button>
+        </div>
+      </nav>
     </header>
+
     <main class="flex flex-column">
       <h1 class="slogan">
-        A modern <br v-if="isMobile"/>
+        A modern <br v-if="isMobile" />
         publishing platform
       </h1>
-      <p>Grow your audience and build your online brand</p>
+      <p class="slogan-p">Grow your audience and build your online brand</p>
       <div class="btn-container flex">
-        <button class="btn btn-start">Start for Free</button>
-        <button class="btn btn-more">Learn More</button>
+        <button class="btn btn-primary">Start for Free</button>
+        <button class="btn btn-secondary">Learn More</button>
       </div>
     </main>
   </div>
@@ -27,9 +41,22 @@
 export default {
   data() {
     return {
-      isMobile: false,
-    }
-  }
+      isMobile: null,
+    };
+  },
+  methods: {
+    checkScreen() {
+      if (window.innerWidth > 770) {
+        this.isMobile = false;
+        return;
+      }
+      this.isMobile = true;
+    },
+  },
+  created() {
+    this.checkScreen();
+    window.addEventListener("resize", this.checkScreen);
+  },
 };
 </script>
 
@@ -54,11 +81,24 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-    .navigation-mobile {
-      button {
-        background: none;
-        border: none;
+    .navigation-desktop {
+      width: 85%;
+      justify-content: space-between;
+      align-items: center;
+      
+      .nav-items{
+        // justify-content: space-evenly;
+        p {
+          margin: 0 15px;
+          text-decoration: underline;
+        }
       }
+
+
+      .btn-login{
+        margin-right: 20px;
+      }
+
     }
   }
 
@@ -71,31 +111,13 @@ export default {
     .btn-container {
       width: 100%;
       justify-content: space-around;
-
-      .btn-start {
-        background-color: hsl(0, 0%, 100%);
-        color: hsl(356, 100%, 66%);
-      }
-      .btn-start:hover {
-        color: hsl(0, 0%, 100%);
-        background-color: hsl(355, 100%, 74%);
-      }
-
-      .btn-more {
-        border: 2px solid hsl(0, 0%, 100%);
-        color: hsl(0, 0%, 100%);
-      }
-
-      .btn-more:hover {
-        background-color: hsl(0, 0%, 100%);
-        color: hsl(356, 100%, 66%);
-      }
     }
   }
 
   @media screen and (min-width: 600px) {
     background-size: 1600px 1600px;
-    background-position: bottom left;
+    background-position: -100px;
+
     h1 {
       font-size: 4rem !important;
     }
@@ -105,11 +127,13 @@ export default {
       overflow: hidden;
       width: 100%;
     }
-    
 
     p {
       font-size: 1.5rem !important;
     }
+  }
+  @media screen and (min-width: 1450px) {
+    background-position: 550px -500px;
   }
 
   h1 {
@@ -117,10 +141,31 @@ export default {
     font-weight: 600;
     margin: 0;
   }
-  p {
+  .slogan-p {
     font-size: 1.125rem;
     font-weight: 300;
     margin-bottom: 45px;
+  }
+  button {
+    background: none;
+    border: none;
+  }
+  .btn-primary {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(356, 100%, 66%);
+  }
+  .btn-primary:hover {
+    color: hsl(0, 0%, 100%);
+    background-color: hsl(355, 100%, 74%);
+  }
+  .btn-secondary {
+    border: 2px solid hsl(0, 0%, 100%);
+    color: hsl(0, 0%, 100%);
+  }
+
+  .btn-secondary:hover {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(356, 100%, 66%);
   }
 }
 </style>

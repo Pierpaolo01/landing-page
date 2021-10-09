@@ -12,6 +12,7 @@
 }
 
 .btn {
+  width: 125px;
   background: none;
   border: none;
   border-radius: 28px;
