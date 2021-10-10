@@ -104,19 +104,28 @@ export default {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-areas:
-      ". heading editor"
+      "heading heading editor"
       "articles articles editor"
       "articles articles editor";
-
+    justify-content: end;
+    overflow: hidden;
     h1 {
+      //   align-self: center;
+      //   justify-self: center;
       grid-area: heading;
+      //   align-self: center;
+      margin-right: -700px;
     }
     .images {
-        margin-right: -235px ;
+      margin-right: -240px;
+    //   margin-right: 0px;
+
+    //   overflow: hidden;
       grid-area: editor;
     }
     .text {
       grid-area: articles;
+      text-align: left;
     }
 
     .images {
